@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TFETP 外籍教師聘僱許可申請教學網</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         /* 自訂過渡動畫 */
         .tab-content {
@@ -54,6 +55,9 @@
                     </button>
                     <button onclick="switchTab('download')" id="btn-download" class="px-4 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-colors">
                         檔案下載
+                    </button>
+                    <button onclick="switchTab('dashboard')" id="btn-dashboard" class="px-4 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-colors">
+                        數據儀表板
                     </button>
                 </nav>
             </div>
@@ -150,7 +154,7 @@
                     </div>
                 </div>
 
-                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden relative">
+                <div id="step-3" class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden relative">
                     <div class="absolute top-0 left-0 w-2 h-full bg-blue-500"></div>
                     <div class="p-6 sm:p-8">
                         <div class="flex items-center gap-4 mb-4">
@@ -159,10 +163,27 @@
                         </div>
                         <div class="space-y-5 text-gray-700">
                             <div class="flex gap-4 items-start">
-                                <div class="mt-1 bg-purple-100 p-2 rounded-full text-purple-600"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg></div>
-                                <div>
+                                <div class="mt-1 bg-purple-100 p-2 rounded-full text-purple-600 shrink-0"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg></div>
+                                <div class="flex-1 min-w-0">
                                     <h4 class="font-bold">核發簽證資料</h4>
                                     <p class="text-sm text-gray-600 mt-1">拿到勞動部聘僱許可後，發文給駐菲律賓代表處 (可免郵寄)。並將外師所需資料 (需蓋大小章與正本相符) Email給外師。</p>
+                                    
+                                    <!-- 公文發函範本區塊 -->
+                                    <div class="mt-4 bg-slate-50 border border-slate-200 rounded-lg p-5 relative overflow-x-auto">
+                                        <span class="absolute top-3 right-3 text-xs font-bold px-2.5 py-1 bg-purple-100 text-purple-700 rounded-md">公文發函範本</span>
+                                        <div class="text-sm text-gray-800 space-y-3 font-serif leading-relaxed mt-2">
+                                            <p><span class="font-bold text-gray-900">主旨：</span><br>檢送本校聘僱菲律賓籍教學人員聘僱許可函掃描影本 1 份，惠請協助辦理簽證申請事宜，請查照。</p>
+                                            <div>
+                                                <span class="font-bold text-gray-900">說明：</span><br>
+                                                <ul class="list-none space-y-1.5 mt-1 ml-1 text-gray-700">
+                                                    <li>一、依據教育部113年2月15日臺教授國字第1135500142號函辦理。</li>
+                                                    <li>二、本校聘任菲律賓籍教學人員○○○（英文姓名：__________，護照號碼：__________）擔任本校__________教師，聘期自115年○月○日起至115年○月○日止。</li>
+                                                    <li>三、為利前揭教學人員向貴處申辦簽證，檢附教育部（或勞動部）核發之聘僱許可函掃描影本1份，並註明與正本相符，惠請協助受理簽證申請相關事宜。</li>
+                                                </ul>
+                                            </div>
+                                            <p><span class="font-bold text-gray-900">正本：</span>駐菲律賓臺北經濟文化辦事處</p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="flex gap-4 items-start">
@@ -190,7 +211,7 @@
                     </div>
                 </div>
 
-                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden relative">
+                <div id="step-4" class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden relative">
                     <div class="absolute top-0 left-0 w-2 h-full bg-blue-500"></div>
                     <div class="p-6 sm:p-8">
                         <div class="flex items-center gap-4 mb-4">
@@ -327,6 +348,11 @@
                 </div>
 
             </div>
+
+            <!-- 資料來源標示 -->
+            <div class="mt-6 text-right text-sm text-gray-500">
+                資料來源：<a href="https://www.awpft.moe.gov.tw/Index" target="_blank" class="hover:text-blue-600 hover:underline transition-colors">各級學校申請外籍教師聘僱許可線上申請系統</a>
+            </div>
         </div>
 
         <div id="download" class="tab-content hidden">
@@ -335,7 +361,8 @@
                 <p class="text-gray-600">提供外籍教師聘僱許可相關表單、操作手冊及參考文件下載連結。</p>
             </div>
 
-            <div class="grid sm:grid-cols-2 gap-6">
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- 第一個檔案：教育部專區 -->
                 <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden relative flex flex-col">
                     <div class="absolute top-0 left-0 w-2 h-full bg-blue-500"></div>
                     <div class="p-6 sm:p-8 flex-1 flex flex-col">
@@ -348,8 +375,8 @@
                         <div class="text-gray-700 flex-1 flex flex-col justify-between">
                             <p class="mb-6 text-sm">如需下載帳號申請單、各類操作手冊或各項外國專業人才延攬及僱用資訊，請前往教育部專屬資訊網。</p>
                             <div>
-                                <a href="https://www.awpft.moe.gov.tw/Index?group=H3" target="_blank" class="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition shadow-sm hover:shadow text-sm">
-                                    前往檔案下載專區 (外連)
+                                <a href="https://www.awpft.moe.gov.tw/Index?group=H3" target="_blank" onclick="trackEvent('moe_form')" class="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition shadow-sm hover:shadow text-sm">
+                                    前往檔案下載專區
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
                                 </a>
                             </div>
@@ -369,29 +396,246 @@
                         <div class="text-gray-700 flex-1 flex flex-col justify-between">
                             <p class="mb-6 text-sm">提供「高中以下申請外籍教師聘僱許可線上申請系統」之完整圖文操作流程與教學簡報。</p>
                             <div>
-                                <button onclick="togglePDFViewer()" class="inline-flex items-center gap-2 px-5 py-2.5 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 transition shadow-sm hover:shadow text-sm cursor-pointer">
+                                <a href="system-manual.pdf" target="_blank" onclick="trackEvent('manual')" class="inline-flex items-center gap-2 px-5 py-2.5 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 transition shadow-sm hover:shadow text-sm cursor-pointer">
                                     線上預覽 PDF 簡報
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 第三個檔案：核發簽證資料 -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden relative flex flex-col">
+                    <div class="absolute top-0 left-0 w-2 h-full bg-indigo-500"></div>
+                    <div class="p-6 sm:p-8 flex-1 flex flex-col">
+                        <div class="flex items-center gap-4 mb-4">
+                            <span class="flex items-center justify-center w-10 h-10 rounded-full bg-indigo-100 text-indigo-600 font-bold text-lg shrink-0">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                            </span>
+                            <h3 class="text-xl font-bold text-gray-900">核發簽證資料</h3>
+                        </div>
+                        <div class="text-gray-700 flex-1 flex flex-col justify-between">
+                            <p class="mb-6 text-sm">提供外籍教學人員向駐菲律賓代表處申請簽證之公文參考與發函範本。</p>
+                            <div>
+                                <button onclick="switchTab('visa-doc'); trackEvent('visa_doc');" class="inline-flex items-center gap-2 px-5 py-2.5 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700 transition shadow-sm hover:shadow text-sm cursor-pointer">
+                                    開啟公文與範本
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                                 </button>
                             </div>
                         </div>
                     </div>
                 </div>
+
+                <!-- 第四個檔案：成功國中聘用流程簡報 (Canva) -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden relative flex flex-col">
+                    <div class="absolute top-0 left-0 w-2 h-full bg-amber-500"></div>
+                    <div class="p-6 sm:p-8 flex-1 flex flex-col">
+                        <div class="flex items-center gap-4 mb-4">
+                            <span class="flex items-center justify-center w-10 h-10 rounded-full bg-amber-100 text-amber-600 font-bold text-lg shrink-0">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path></svg>
+                            </span>
+                            <h3 class="text-xl font-bold text-gray-900">成功國中聘用流程簡報</h3>
+                        </div>
+                        <div class="text-gray-700 flex-1 flex flex-col justify-between">
+                            <p class="mb-6 text-sm">提供「擴大引進外籍英語教學人員計畫」之聘用流程與注意事項簡報。</p>
+                            <div>
+                                <a href="https://canva.link/1150602tfetp" target="_blank" onclick="trackEvent('canva_flow')" class="inline-flex items-center gap-2 px-5 py-2.5 bg-amber-500 text-white font-medium rounded-lg hover:bg-amber-600 transition shadow-sm hover:shadow text-sm">
+                                    線上觀看簡報
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== 分頁 5: 核發簽證公文與範本 ==================== -->
+        <div id="visa-doc" class="tab-content hidden">
+            <div class="mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div>
+                    <h2 class="text-3xl font-extrabold text-gray-900 mb-2">核發簽證公文與範本</h2>
+                    <p class="text-gray-600">提供駐菲律賓代表處申請簽證之相關公文參考及發函範本。</p>
+                </div>
+                <button onclick="switchTab('download')" class="px-5 py-2.5 bg-gray-100 text-gray-700 font-medium rounded-lg hover:bg-gray-200 transition shadow-sm flex items-center gap-2 text-sm shrink-0">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                    返回檔案下載
+                </button>
             </div>
 
-            <!-- 內嵌 PDF 預覽區塊 -->
-            <div id="pdf-viewer-container" class="hidden mt-8 bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-                <div class="bg-gray-50 px-4 py-3 border-b border-gray-200 flex justify-between items-center">
-                    <h3 class="font-bold text-gray-700">系統操作說明簡報 - 網頁內預覽</h3>
-                    <button onclick="togglePDFViewer()" class="text-gray-500 hover:text-red-500 transition p-1" title="關閉預覽">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-                    </button>
+            <div class="flex flex-col gap-6">
+                <!-- 公文預覽按鈕區塊 -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 sm:p-8 flex flex-col sm:flex-row justify-between items-center gap-4">
+                    <div class="flex items-center gap-4">
+                        <span class="flex items-center justify-center w-10 h-10 rounded-full bg-blue-100 text-blue-600 shrink-0">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                        </span>
+                        <div>
+                            <h3 class="font-bold text-gray-900 text-lg">公文參考 PDF</h3>
+                            <p class="text-sm text-gray-500 mt-1">點擊右方按鈕於新分頁開啟公文參考範例檔案。</p>
+                        </div>
+                    </div>
+                    <a href="visa-document.pdf" target="_blank" class="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition shadow-sm hover:shadow text-sm shrink-0 cursor-pointer">
+                        線上預覽公文參考
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                    </a>
                 </div>
-                <div class="h-[75vh] w-full">
-                    <iframe src="system-manual.pdf" width="100%" height="100%" class="border-0">
-                        您的瀏覽器不支援內嵌 PDF，請點此<a href="system-manual.pdf" target="_blank" class="text-blue-600 underline">下載檔案</a>。
-                    </iframe>
+
+                <!-- 發文範本 -->
+                <div class="w-full flex flex-col bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                    <div class="bg-purple-50 border-b border-purple-100 px-5 py-4 flex justify-between items-center">
+                        <h3 class="font-bold text-purple-900 flex items-center gap-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                            發文範本
+                        </h3>
+                        <button onclick="copyTemplate()" class="text-purple-700 hover:text-purple-900 text-sm font-semibold bg-purple-100/50 border border-purple-200 px-3 py-1.5 rounded hover:bg-purple-200 transition flex items-center gap-1">
+                            複製內容
+                        </button>
+                    </div>
+                    <div class="p-5 text-gray-800 text-sm font-serif leading-relaxed space-y-4 bg-gray-50 flex-1">
+                        <p><span class="font-bold">主旨：</span><br>檢送本校聘僱菲律賓籍教學人員聘僱許可函掃描影本1份，惠請協助辦理簽證申請事宜，請查照。</p>
+                        <div>
+                            <span class="font-bold">說明：</span>
+                            <ul class="list-none space-y-2 mt-2">
+                                <li>一、依據教育部113年2月15日臺教授國字第1135500142號函辦理。</li>
+                                <li>二、本校聘任菲律賓籍教學人員○○○（英文姓名：__________，護照號碼：__________）擔任本校__________教師，聘期自115年○月○日起至115年○月○日止。</li>
+                                <li>三、為利前揭教學人員向貴處申辦簽證，檢附教育部（或勞動部）核發之聘僱許可函掃描影本1份，並註明與正本相符，惠請協助受理簽證申請相關事宜。</li>
+                            </ul>
+                        </div>
+                        <p><span class="font-bold">正本：</span><br>駐菲律賓臺北經濟文化辦事處</p>
+                        <p><span class="font-bold">副本：</span></p>
+                    </div>
                 </div>
+            </div>
+        </div>
+
+        <!-- ==================== 分頁 4: 數據儀表板 ==================== -->
+        <div id="dashboard" class="tab-content hidden">
+            <div class="mb-8">
+                <h2 class="text-3xl font-extrabold text-gray-900 mb-2">數據儀表板</h2>
+                <p class="text-gray-600">本站點各項教學資源的使用狀況與互動次數統計。</p>
+            </div>
+
+            <!-- 整體網站數據 -->
+            <h3 class="text-lg font-bold text-gray-800 mb-3 border-l-4 border-blue-500 pl-2">整體網站數據</h3>
+            <div class="grid sm:grid-cols-2 gap-6 mb-8">
+                <div class="bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl shadow-md p-6 text-white relative overflow-hidden">
+                    <svg class="absolute -right-4 -bottom-4 w-24 h-24 text-blue-400 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                    <div class="relative z-10">
+                        <p class="text-blue-100 text-sm font-medium mb-1">網站造訪總次數</p>
+                        <h4 class="text-4xl font-extrabold" id="stat-visits">0</h4>
+                    </div>
+                </div>
+                <div class="bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl shadow-md p-6 text-white relative overflow-hidden">
+                    <svg class="absolute -right-4 -bottom-4 w-24 h-24 text-purple-400 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <div class="relative z-10">
+                        <p class="text-purple-100 text-sm font-medium mb-1">常見問題查詢次數</p>
+                        <h4 class="text-4xl font-extrabold" id="stat-faq">0</h4>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 檔案下載點閱數據 -->
+            <h3 class="text-lg font-bold text-gray-800 mb-3 border-l-4 border-green-500 pl-2">檔案下載點閱數據</h3>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <div class="bg-teal-500 rounded-xl shadow-md p-5 text-white relative overflow-hidden">
+                    <svg class="absolute -right-4 -bottom-4 w-20 h-20 text-teal-400 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                    <div class="relative z-10">
+                        <p class="text-teal-100 text-xs font-medium mb-1">教育部相關表單</p>
+                        <h4 class="text-3xl font-extrabold" id="stat-moe_form">0</h4>
+                    </div>
+                </div>
+                <div class="bg-green-500 rounded-xl shadow-md p-5 text-white relative overflow-hidden">
+                    <svg class="absolute -right-4 -bottom-4 w-20 h-20 text-green-400 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                    <div class="relative z-10">
+                        <p class="text-green-100 text-xs font-medium mb-1">系統操作簡報</p>
+                        <h4 class="text-3xl font-extrabold" id="stat-manual">0</h4>
+                    </div>
+                </div>
+                <div class="bg-indigo-500 rounded-xl shadow-md p-5 text-white relative overflow-hidden">
+                    <svg class="absolute -right-4 -bottom-4 w-20 h-20 text-indigo-400 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                    <div class="relative z-10">
+                        <p class="text-indigo-100 text-xs font-medium mb-1">核發簽證資料</p>
+                        <h4 class="text-3xl font-extrabold" id="stat-visa_doc">0</h4>
+                    </div>
+                </div>
+                <div class="bg-amber-500 rounded-xl shadow-md p-5 text-white relative overflow-hidden">
+                    <svg class="absolute -right-4 -bottom-4 w-20 h-20 text-amber-400 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <div class="relative z-10">
+                        <p class="text-amber-100 text-xs font-medium mb-1">聘用流程簡報</p>
+                        <h4 class="text-3xl font-extrabold" id="stat-canva_flow">0</h4>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 年月統計區塊與趨勢圖 -->
+            <div class="mt-10">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-4">
+                    <h3 class="text-xl font-bold text-gray-800 flex items-center gap-2">
+                        <svg class="w-6 h-6 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"></path></svg>
+                        數據趨勢圖與明細
+                    </h3>
+                    <div class="flex items-center gap-2 w-full sm:w-auto">
+                        <select id="month-selector" onchange="updateMonthlyDashboard()" class="border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm px-3 py-2 bg-white border cursor-pointer outline-none flex-1 sm:flex-none">
+                        </select>
+                        <button onclick="exportToCSV()" class="inline-flex items-center justify-center gap-2 px-4 py-2 bg-indigo-50 text-indigo-700 font-medium rounded-lg hover:bg-indigo-100 transition shadow-sm hover:shadow text-sm cursor-pointer border border-indigo-200 shrink-0">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                            匯出 CSV
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden mb-6 p-6">
+                    <div class="w-full h-72 relative">
+                        <canvas id="trendChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">統計項目</th>
+                                <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">點閱次數</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            <tr>
+                                <td class="px-6 py-3 whitespace-nowrap text-sm font-medium text-gray-900 border-l-4 border-blue-500">網站造訪總次數</td>
+                                <td class="px-6 py-3 whitespace-nowrap text-sm text-gray-500 text-right font-semibold" id="monthly-visits">0</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-3 whitespace-nowrap text-sm font-medium text-gray-900 border-l-4 border-purple-500">常見問題查詢次數</td>
+                                <td class="px-6 py-3 whitespace-nowrap text-sm text-gray-500 text-right font-semibold" id="monthly-faq">0</td>
+                            </tr>
+                            <tr class="bg-gray-50">
+                                <td class="px-6 py-3 whitespace-nowrap text-sm font-medium text-gray-900 border-l-4 border-teal-500">教育部相關表單點閱</td>
+                                <td class="px-6 py-3 whitespace-nowrap text-sm text-gray-500 text-right font-semibold" id="monthly-moe_form">0</td>
+                            </tr>
+                            <tr class="bg-gray-50">
+                                <td class="px-6 py-3 whitespace-nowrap text-sm font-medium text-gray-900 border-l-4 border-green-500">系統操作簡報預覽</td>
+                                <td class="px-6 py-3 whitespace-nowrap text-sm text-gray-500 text-right font-semibold" id="monthly-manual">0</td>
+                            </tr>
+                            <tr class="bg-gray-50">
+                                <td class="px-6 py-3 whitespace-nowrap text-sm font-medium text-gray-900 border-l-4 border-indigo-500">核發簽證資料點閱</td>
+                                <td class="px-6 py-3 whitespace-nowrap text-sm text-gray-500 text-right font-semibold" id="monthly-visa_doc">0</td>
+                            </tr>
+                            <tr class="bg-gray-50">
+                                <td class="px-6 py-3 whitespace-nowrap text-sm font-medium text-gray-900 border-l-4 border-amber-500">聘用流程簡報點閱</td>
+                                <td class="px-6 py-3 whitespace-nowrap text-sm text-gray-500 text-right font-semibold" id="monthly-canva_flow">0</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="mt-8 bg-yellow-50 border border-yellow-200 rounded-lg p-4 text-sm text-yellow-800">
+                <p class="flex items-center gap-2 font-medium">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    資料統計說明
+                </p>
+                <p class="mt-1 ml-7">目前數據為展示用途，統計數字儲存於您本地端的瀏覽器快取中。每次實際點擊都會即時累加並呈現在趨勢圖與表格上。</p>
             </div>
         </div>
 
@@ -402,6 +646,11 @@
         <p>本指南僅供行政人員參考，實際規定依教育部與相關主管機關公告為主。</p>
     </footer>
 
+    <!-- Toast 通知 -->
+    <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-gray-800 text-white px-6 py-3 rounded-lg shadow-xl transition-all duration-300 opacity-0 translate-y-4 pointer-events-none z-[100] font-medium">
+        已複製到剪貼簿！
+    </div>
+
     <script>
         // 分頁切換邏輯
         function switchTab(tabId) {
@@ -409,16 +658,72 @@
             document.querySelectorAll('.tab-content').forEach(el => {
                 el.classList.remove('active');
             });
+            
             // 移除所有按鈕的啟用樣式
-            document.getElementById('btn-guide').className = "px-4 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-colors";
-            document.getElementById('btn-faq').className = "px-4 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-colors";
-            document.getElementById('btn-download').className = "px-4 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-colors";
+            ['guide', 'faq', 'download', 'dashboard'].forEach(id => {
+                const btn = document.getElementById('btn-' + id);
+                if (btn) btn.className = "px-4 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-colors";
+            });
 
             // 顯示目標內容
             document.getElementById(tabId).classList.add('active');
             
-            // 設定點擊按鈕的樣式
-            document.getElementById('btn-' + tabId).className = "px-4 py-2 text-sm font-medium rounded-md bg-blue-50 text-blue-700 hover:bg-blue-100 transition-colors";
+            // 設定點擊按鈕的樣式 (處理 sub-page 的 nav 對應)
+            let activeNavId = tabId;
+            if (tabId === 'visa-doc') activeNavId = 'download';
+            
+            const activeBtn = document.getElementById('btn-' + activeNavId);
+            if (activeBtn) activeBtn.className = "px-4 py-2 text-sm font-medium rounded-md bg-blue-50 text-blue-700 hover:bg-blue-100 transition-colors";
+        }
+
+        // 複製公文範本邏輯
+        function copyTemplate() {
+            const text = "主旨：\r\n\r\n檢送本校聘僱菲律賓籍教學人員聘僱許可函掃描影本1份，惠請協助辦理簽證申請事宜，請查照。\r\n\r\n說明：\r\n\r\n一、依據教育部113年2月15日臺教授國字第1135500142號函辦理。\r\n\r\n二、本校聘任菲律賓籍教學人員○○○（英文姓名：__________，護照號碼：__________）擔任本校__________教師，聘期自115年○月○日起至115年○月○日止。\r\n\r\n三、為利前揭教學人員向貴處申辦簽證，檢附教育部（或勞動部）核發之聘僱許可函掃描影本1份，並註明與正本相符，惠請協助受理簽證申請相關事宜。\r\n\r\n正本：\r\n\r\n駐菲律賓臺北經濟文化辦事處\r\n\r\n副本：";
+            
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            document.body.appendChild(textArea);
+            textArea.select();
+            try {
+                document.execCommand('copy');
+                showToast('範本內容已成功複製！');
+            } catch (err) {
+                showToast('複製失敗，請手動複製。');
+            }
+            document.body.removeChild(textArea);
+        }
+
+        // 顯示 Toast 訊息
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            if (!toast) return;
+            toast.innerText = msg;
+            toast.classList.remove('opacity-0', 'translate-y-4');
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'translate-y-4');
+            }, 3000);
+        }
+
+        // 外師位置切換邏輯 (在台灣 / 在海外)
+        function setTeacherLocation(loc) {
+            const btnOverseas = document.getElementById('btn-loc-overseas');
+            const btnTaiwan = document.getElementById('btn-loc-taiwan');
+            const step3 = document.getElementById('step-3');
+            const step4 = document.getElementById('step-4');
+
+            if (!btnOverseas || !btnTaiwan || !step3 || !step4) return;
+
+            if (loc === 'overseas') {
+                btnOverseas.className = "px-6 py-2 rounded-md text-sm font-bold bg-white text-blue-600 shadow-sm transition-all";
+                btnTaiwan.className = "px-6 py-2 rounded-md text-sm font-bold text-gray-500 hover:text-gray-700 transition-all";
+                step3.classList.remove('hidden');
+                step4.classList.remove('hidden');
+            } else {
+                btnTaiwan.className = "px-6 py-2 rounded-md text-sm font-bold bg-white text-blue-600 shadow-sm transition-all";
+                btnOverseas.className = "px-6 py-2 rounded-md text-sm font-bold text-gray-500 hover:text-gray-700 transition-all";
+                step3.classList.add('hidden');
+                step4.classList.add('hidden');
+            }
         }
 
         // 常見問題的折疊面板 (Accordion) 邏輯
@@ -434,24 +739,207 @@
                 // 展開
                 content.classList.add('open');
                 icon.classList.add('rotate');
+                trackEvent('faq'); // 記錄 FAQ 被點擊的次數
             }
         }
 
-        // 內嵌 PDF 預覽切換邏輯
-        function togglePDFViewer() {
-            const viewer = document.getElementById('pdf-viewer-container');
-            if (viewer.classList.contains('hidden')) {
-                // 展開預覽區塊
-                viewer.classList.remove('hidden');
-                // 延遲一點點時間，讓區塊顯示後再平滑滾動過去
-                setTimeout(() => {
-                    viewer.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }, 100);
+        // ==================== 數據追蹤邏輯 ====================
+        
+        let trendChartInstance = null;
+
+        // 取得當前年月的格式 (YYYY-MM)
+        function getCurrentMonthKey() {
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            return `${year}-${month}`;
+        }
+
+        // 通用的追蹤紀錄函式
+        function trackEvent(type) {
+            // 紀錄總數
+            let total = parseInt(localStorage.getItem('stat_' + type) || '0');
+            localStorage.setItem('stat_' + type, total + 1);
+
+            // 紀錄年月明細
+            const key = getCurrentMonthKey();
+            let monthlyStats = JSON.parse(localStorage.getItem('monthly_stats') || '{}');
+            
+            if (!monthlyStats[key]) {
+                monthlyStats[key] = { visits: 0, manual: 0, faq: 0, moe_form: 0, visa_doc: 0, canva_flow: 0 };
+            }
+            
+            monthlyStats[key][type] = (monthlyStats[key][type] || 0) + 1;
+            localStorage.setItem('monthly_stats', JSON.stringify(monthlyStats));
+            
+            // 同步更新畫面
+            updateMonthSelector();
+            updateDashboard();
+        }
+
+        // 初始化統計 (用於處理網頁載入時的「造訪次數」)
+        function initStats() {
+            let visits = parseInt(localStorage.getItem('stat_visits') || '0');
+            localStorage.setItem('stat_visits', visits + 1);
+            
+            const key = getCurrentMonthKey();
+            let monthlyStats = JSON.parse(localStorage.getItem('monthly_stats') || '{}');
+            if (!monthlyStats[key]) {
+                monthlyStats[key] = { visits: 0, manual: 0, faq: 0, moe_form: 0, visa_doc: 0, canva_flow: 0 };
+            }
+            monthlyStats[key]['visits'] = (monthlyStats[key]['visits'] || 0) + 1;
+            localStorage.setItem('monthly_stats', JSON.stringify(monthlyStats));
+            
+            updateMonthSelector();
+            updateDashboard();
+        }
+
+        // 更新年月下拉式選單
+        function updateMonthSelector() {
+            const selector = document.getElementById('month-selector');
+            if (!selector) return;
+            
+            const monthlyStats = JSON.parse(localStorage.getItem('monthly_stats') || '{}');
+            const keys = Object.keys(monthlyStats).sort((a, b) => b.localeCompare(a)); // 年月降冪排列
+            const currentKey = getCurrentMonthKey();
+            
+            // 確保當前年月即使沒資料也會在選單中
+            if (!keys.includes(currentKey)) {
+                keys.unshift(currentKey);
+            }
+
+            const selectedValue = selector.value || currentKey;
+            selector.innerHTML = '';
+            
+            keys.forEach(key => {
+                const [year, month] = key.split('-');
+                const option = document.createElement('option');
+                option.value = key;
+                option.text = `${year} 年 ${month} 月`;
+                if (key === selectedValue) option.selected = true;
+                selector.appendChild(option);
+            });
+        }
+
+        // 依據選擇的月份更新下方表格明細
+        function updateMonthlyDashboard() {
+            const selector = document.getElementById('month-selector');
+            if (!selector) return;
+            
+            const key = selector.value || getCurrentMonthKey();
+            const monthlyStats = JSON.parse(localStorage.getItem('monthly_stats') || '{}');
+            const stats = monthlyStats[key] || { visits: 0, manual: 0, faq: 0, moe_form: 0, visa_doc: 0, canva_flow: 0 };
+            
+            document.getElementById('monthly-visits').innerText = stats.visits || 0;
+            document.getElementById('monthly-faq').innerText = stats.faq || 0;
+            document.getElementById('monthly-moe_form').innerText = stats.moe_form || 0;
+            document.getElementById('monthly-manual').innerText = stats.manual || 0;
+            document.getElementById('monthly-visa_doc').innerText = stats.visa_doc || 0;
+            document.getElementById('monthly-canva_flow').innerText = stats.canva_flow || 0;
+        }
+
+        // 更新畫面所有數據、儀表板卡片與折線圖
+        function updateDashboard() {
+            // 更新總數卡片
+            document.getElementById('stat-visits').innerText = localStorage.getItem('stat_visits') || '0';
+            document.getElementById('stat-faq').innerText = localStorage.getItem('stat_faq') || '0';
+            document.getElementById('stat-moe_form').innerText = localStorage.getItem('stat_moe_form') || '0';
+            document.getElementById('stat-manual').innerText = localStorage.getItem('stat_manual') || '0';
+            document.getElementById('stat-visa_doc').innerText = localStorage.getItem('stat_visa_doc') || '0';
+            document.getElementById('stat-canva_flow').innerText = localStorage.getItem('stat_canva_flow') || '0';
+            
+            updateMonthlyDashboard(); // 更新明細表格
+            updateTrendChart();       // 更新折線圖
+        }
+
+        // 更新趨勢圖
+        function updateTrendChart() {
+            const monthlyStats = JSON.parse(localStorage.getItem('monthly_stats') || '{}');
+            if (Object.keys(monthlyStats).length === 0) {
+                monthlyStats[getCurrentMonthKey()] = { visits: 0, manual: 0, faq: 0, moe_form: 0, visa_doc: 0, canva_flow: 0 };
+            }
+
+            // 確保資料以時間從舊到新 (升冪) 排列
+            const labels = Object.keys(monthlyStats).sort((a, b) => a.localeCompare(b)); 
+            
+            const visitData = labels.map(key => monthlyStats[key].visits || 0);
+            const faqData = labels.map(key => monthlyStats[key].faq || 0);
+            const moeData = labels.map(key => monthlyStats[key].moe_form || 0);
+            const manualData = labels.map(key => monthlyStats[key].manual || 0);
+            const visaData = labels.map(key => monthlyStats[key].visa_doc || 0);
+            const canvaData = labels.map(key => monthlyStats[key].canva_flow || 0);
+
+            const ctx = document.getElementById('trendChart');
+            if (!ctx) return;
+
+            if (trendChartInstance) {
+                trendChartInstance.data.labels = labels;
+                trendChartInstance.data.datasets[0].data = visitData;
+                trendChartInstance.data.datasets[1].data = faqData;
+                trendChartInstance.data.datasets[2].data = moeData;
+                trendChartInstance.data.datasets[3].data = manualData;
+                trendChartInstance.data.datasets[4].data = visaData;
+                trendChartInstance.data.datasets[5].data = canvaData;
+                trendChartInstance.update();
             } else {
-                // 隱藏預覽區塊
-                viewer.classList.add('hidden');
+                trendChartInstance = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: [
+                            { label: '網站造訪總次數', data: visitData, borderColor: '#3b82f6', backgroundColor: 'rgba(59, 130, 246, 0.1)', tension: 0.3, fill: true },
+                            { label: '常見問題查詢', data: faqData, borderColor: '#a855f7', backgroundColor: 'rgba(168, 85, 247, 0.1)', tension: 0.3, fill: true },
+                            { label: '教育部表單點閱', data: moeData, borderColor: '#14b8a6', backgroundColor: 'rgba(20, 184, 166, 0.1)', tension: 0.3, fill: true },
+                            { label: '系統操作簡報點閱', data: manualData, borderColor: '#22c55e', backgroundColor: 'rgba(34, 197, 94, 0.1)', tension: 0.3, fill: true },
+                            { label: '核發簽證資料點閱', data: visaData, borderColor: '#6366f1', backgroundColor: 'rgba(99, 102, 241, 0.1)', tension: 0.3, fill: true },
+                            { label: '聘用流程簡報點閱', data: canvaData, borderColor: '#f59e0b', backgroundColor: 'rgba(245, 158, 11, 0.1)', tension: 0.3, fill: true }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        interaction: { mode: 'index', intersect: false },
+                        scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } }
+                    }
+                });
             }
         }
+
+        // 匯出 CSV 檔案功能
+        function exportToCSV() {
+            const stats = JSON.parse(localStorage.getItem('monthly_stats') || '{}');
+            const keys = Object.keys(stats).sort((a, b) => a.localeCompare(b));
+            
+            // 加上 \uFEFF BOM 標籤，讓 Excel 開啟時支援 UTF-8 中文不亂碼
+            let csvContent = "data:text/csv;charset=utf-8,\uFEFF";
+            csvContent += "統計年月,網站造訪總次數,常見問題查詢次數,教育部表單點閱次數,系統操作簡報點閱次數,核發簽證資料點閱次數,聘用流程簡報點閱次數\n";
+
+            keys.forEach(key => {
+                const row = [
+                    key,
+                    stats[key].visits || 0,
+                    stats[key].faq || 0,
+                    stats[key].moe_form || 0,
+                    stats[key].manual || 0,
+                    stats[key].visa_doc || 0,
+                    stats[key].canva_flow || 0
+                ];
+                csvContent += row.join(",") + "\n";
+            });
+
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "外師聘僱教學網_數據統計.csv");
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // 當網頁載入完成時，執行初始化統計
+        window.onload = function() {
+            initStats();
+        };
     </script>
 </body>
 </html>
