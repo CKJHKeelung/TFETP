@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TFETP 外籍教師聘僱許可申請教學網</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* 自訂過渡動畫 */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-in-out, padding 0.3s ease-in-out;
+        }
+        .accordion-content.open {
+            max-height: 500px; /* 預設最大高度 */
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+        }
+        .accordion-icon {
+            transition: transform 0.3s ease-in-out;
+        }
+        .accordion-icon.rotate {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans text-gray-800 antialiased selection:bg-blue-200 selection:text-blue-900">
+
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center gap-2">
+                    <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m3-4h1m-1 4h1m-5 8h8"></path></svg>
+                    <h1 class="text-xl font-bold text-gray-900 tracking-tight">外師聘僱許可申請系統流程</h1>
+                </div>
+                <nav class="flex gap-1 sm:gap-4">
+                    <button onclick="switchTab('guide')" id="btn-guide" class="px-4 py-2 text-sm font-medium rounded-md bg-blue-50 text-blue-700 hover:bg-blue-100 transition-colors">
+                        申請教學
+                    </button>
+                    <button onclick="switchTab('faq')" id="btn-faq" class="px-4 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-colors">
+                        常見問題 (FAQ)
+                    </button>
+                    <button onclick="switchTab('download')" id="btn-download" class="px-4 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-colors">
+                        檔案下載
+                    </button>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        
+        <div id="guide" class="tab-content active">
+            <div class="mb-8">
+                <h2 class="text-3xl font-extrabold text-gray-900 mb-2">TFETP 聘僱許可申請流程</h2>
+                <p class="text-gray-600">本指南協助學校行政人員了解收到 TFETP 公文通知媒合成功後，如何進行系統開通、申請許可及後續外師簽證與居留證辦理手續。</p>
+            </div>
+
+            <div class="space-y-8">
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden relative">
+                    <div class="absolute top-0 left-0 w-2 h-full bg-blue-500"></div>
+                    <div class="p-6 sm:p-8">
+                        <div class="flex items-center gap-4 mb-4">
+                            <span class="flex items-center justify-center w-10 h-10 rounded-full bg-blue-100 text-blue-600 font-bold text-lg">1</span>
+                            <h3 class="text-xl font-bold text-gray-900">系統開通與登入</h3>
+                        </div>
+                        <div class="space-y-4 text-gray-700">
+                            <div class="flex flex-col sm:flex-row gap-4">
+                                <a href="https://tfetp.k12ea.gov.tw/en/tfetp/web/home" target="_blank" class="flex-1 block p-4 rounded-lg border border-blue-100 bg-blue-50 hover:bg-blue-100 hover:shadow-md transition group">
+                                    <h4 class="font-semibold text-blue-900 flex items-center gap-2">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                                        開通 TFETP 學校系統
+                                    </h4>
+                                    <p class="text-sm mt-1 text-blue-700/80">下載相關資料</p>
+                                </a>
+                                <a href="https://www.awpft.moe.gov.tw/Index" target="_blank" class="flex-1 block p-4 rounded-lg border border-green-100 bg-green-50 hover:bg-green-100 hover:shadow-md transition group">
+                                    <h4 class="font-semibold text-green-900 flex items-center gap-2">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                                        各級學校申請外籍教師聘僱許可線上申請系統
+                                    </h4>
+                                    <p class="text-sm mt-1 text-green-700/80">登入聘僱教師資料</p>
+                                </a>
+                            </div>
+                            
+                            <div class="mt-6">
+                                <h4 class="font-semibold text-gray-900 mb-2">上傳聘僱許可應備文件：</h4>
+                                <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">
+                                    <li class="flex items-start gap-2"><svg class="w-5 h-5 text-green-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>申請書 (需核大、小章)</li>
+                                    <li class="flex items-start gap-2"><svg class="w-5 h-5 text-green-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>受聘外國人名冊</li>
+                                    <li class="flex items-start gap-2"><svg class="w-5 h-5 text-green-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>負責人身分文件</li>
+                                    <li class="flex items-start gap-2"><svg class="w-5 h-5 text-green-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>全校班級數明細表</li>
+                                    <li class="flex items-start gap-2"><svg class="w-5 h-5 text-green-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>外國人護照</li>
+                                    <li class="flex items-start gap-2"><svg class="w-5 h-5 text-green-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>學歷證明書與任教資格</li>
+                                    <li class="flex items-start gap-2"><svg class="w-5 h-5 text-green-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>一年以上工作經歷證明</li>
+                                    <li class="flex items-start gap-2"><svg class="w-5 h-5 text-green-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>無犯罪經驗證明與外師合約書</li>
+                                </ul>
+                            </div>
+
+                            <div class="mt-4 bg-red-50 border-l-4 border-red-500 p-4 rounded-r-md">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <svg class="w-6 h-6 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                                    <h4 class="font-bold text-red-800">教育部送件防退件注意事項</h4>
+                                </div>
+                                <ul class="list-disc list-inside text-sm text-red-900 space-y-1 ml-2">
+                                    <li>外師提供的所有資料都要蓋<strong class="bg-red-200 px-1 rounded">大章、小章與校長章</strong>，並加註「<strong class="bg-red-200 px-1 rounded">與正本相符</strong>」。</li>
+                                    <li>校名、外師名均須使用全名，契約封面校名請以全銜（如：基隆市立成功國民中學）為主，勿加多餘符號。</li>
+                                    <li>合約第一頁的簽訂日期<strong class="underline decoration-red-400">不應為未來日期</strong>。</li>
+                                    <li>契約簽署頁乙方請填寫外師護照英文全名（若有中間名應置於名後），系統若有誤需致電系統公司修改。</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden relative">
+                    <div class="absolute top-0 left-0 w-2 h-full bg-blue-500"></div>
+                    <div class="p-6 sm:p-8">
+                        <div class="flex items-center gap-4 mb-4">
+                            <span class="flex items-center justify-center w-10 h-10 rounded-full bg-blue-100 text-blue-600 font-bold text-lg">2</span>
+                            <h3 class="text-xl font-bold text-gray-900">申請勞工文件證明 (MECO)</h3>
+                        </div>
+                        <div class="text-gray-700 space-y-4">
+                            <p>收到教育部工作許可後，請至 <a href="https://www.meco-labor.org.tw/" target="_blank" class="text-blue-600 hover:text-blue-800 underline font-medium">馬尼拉經濟文化辦事處勞工中心 (MECO)</a> 線上填寫「直接聘僱申請」，送出後會取得申請文件編號。</p>
+                            
+                            <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                                <div class="flex justify-between items-center mb-3">
+                                    <h4 class="font-bold text-gray-800">繳交文件辦理驗證</h4>
+                                    <span class="bg-yellow-100 text-yellow-800 text-xs font-bold px-2 py-1 rounded border border-yellow-200">驗證費：1,435 元</span>
+                                </div>
+                                <ul class="list-decimal list-inside space-y-2 text-sm ml-2">
+                                    <li>勞動部聘僱許可函與簽證許可函正本（教育部工作許可） 1 份。</li>
+                                    <li>線上列印之勞工資料表 2 份。</li>
+                                    <li>使用 MECO 連結版本之「教育部聘僱契約」書 2 份。</li>
+                                    <li>蓋有大小章並註明與正本相符的外師護照影本。</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden relative">
+                    <div class="absolute top-0 left-0 w-2 h-full bg-blue-500"></div>
+                    <div class="p-6 sm:p-8">
+                        <div class="flex items-center gap-4 mb-4">
+                            <span class="flex items-center justify-center w-10 h-10 rounded-full bg-blue-100 text-blue-600 font-bold text-lg">3</span>
+                            <h3 class="text-xl font-bold text-gray-900">外師海外簽證與 POEA 手續</h3>
+                        </div>
+                        <div class="space-y-5 text-gray-700">
+                            <div class="flex gap-4 items-start">
+                                <div class="mt-1 bg-purple-100 p-2 rounded-full text-purple-600"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg></div>
+                                <div>
+                                    <h4 class="font-bold">核發簽證資料</h4>
+                                    <p class="text-sm text-gray-600 mt-1">拿到勞動部聘僱許可後，發文給駐菲律賓代表處 (可免郵寄)。並將外師所需資料 (需蓋大小章與正本相符) Email給外師。</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-4 items-start">
+                                <div class="mt-1 bg-purple-100 p-2 rounded-full text-purple-600"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg></div>
+                                <div>
+                                    <h4 class="font-bold">辦理簽證 <span class="text-red-500 font-normal text-sm ml-2">(⚠️ 非常重要)</span></h4>
+                                    <p class="text-sm text-gray-600 mt-1">請外師憑「外師勞工證明文件」去辦理簽證。務必注意一定要辦理 <strong>「Residence 居留簽證」</strong>，若辦成只有兩個月的「VISITOR 觀光簽證」，會需要協助外師轉辦。</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-4 items-start">
+                                <div class="mt-1 bg-purple-100 p-2 rounded-full text-purple-600"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg></div>
+                                <div>
+                                    <h4 class="font-bold">寄送正本供 POEA 驗證</h4>
+                                    <p class="text-sm text-gray-600 mt-1">外師拿到簽證後，因菲律賓海外就業署 (POEA) 需要確認「勞工證明正本文件」，學校必須透過 <strong>DHL</strong> 將正本寄給外師。</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-4 items-start">
+                                <div class="mt-1 bg-purple-100 p-2 rounded-full text-purple-600"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2"></path></svg></div>
+                                <div>
+                                    <h4 class="font-bold">準備 POEA 所需掃描檔</h4>
+                                    <p class="text-sm text-gray-600 mt-1">包含機構負責人之國民身分證影本、學校執照影本（英譯本）、學校統一編號編配通知書影本、顧聘許可（英譯本）。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden relative">
+                    <div class="absolute top-0 left-0 w-2 h-full bg-blue-500"></div>
+                    <div class="p-6 sm:p-8">
+                        <div class="flex items-center gap-4 mb-4">
+                            <span class="flex items-center justify-center w-10 h-10 rounded-full bg-blue-100 text-blue-600 font-bold text-lg">4</span>
+                            <h3 class="text-xl font-bold text-gray-900">抵台後辦理居留證 (ARC)</h3>
+                        </div>
+                        <div class="text-gray-700">
+                            <p class="mb-4">請外師持停留 60 天以上且未經簽證加註限制之簽證，至移民局（如基隆市移民署）辦理居留證。</p>
+                            <div class="grid sm:grid-cols-2 gap-4">
+                                <div class="bg-gray-50 rounded p-4 border border-gray-200">
+                                    <h4 class="font-bold text-gray-800 flex items-center gap-2 mb-2">
+                                        <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
+                                        應備文件
+                                    </h4>
+                                    <ul class="list-disc list-inside text-sm text-gray-600 space-y-1 ml-1">
+                                        <li>護照和簽證</li>
+                                        <li>教育部工作證明</li>
+                                        <li>學校在職證明</li>
+                                        <li>2 張照片</li>
+                                        <li>居住證明 (租賃房屋契約)</li>
+                                        <li>外國人居停留案申請</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-gray-50 rounded p-4 border border-gray-200">
+                                    <h4 class="font-bold text-gray-800 flex items-center gap-2 mb-2">
+                                        <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08-.402-2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                        規費標準
+                                    </h4>
+                                    <ul class="list-disc list-inside text-sm text-gray-600 space-y-2 ml-1">
+                                        <li><span class="font-medium text-gray-800">一年效期：</span> 3,200 元</li>
+                                        <li><span class="font-medium text-gray-800">二年效期：</span> 4,200 元</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="faq" class="tab-content hidden">
+            <div class="mb-8">
+                <h2 class="text-3xl font-extrabold text-gray-900 mb-2">常見問題 (FAQ)</h2>
+                <p class="text-gray-600">系統操作與申請過程中的常見疑難排解。</p>
+            </div>
+
+            <div class="space-y-3" id="accordion-container">
+                <div class="border border-gray-200 rounded-lg bg-white overflow-hidden shadow-sm">
+                    <button class="w-full text-left px-5 py-4 font-semibold text-gray-800 flex justify-between items-center hover:bg-gray-50 transition" onclick="toggleFAQ('faq1', this)">
+                        1. 如何申請帳號?
+                        <svg class="w-5 h-5 text-gray-500 accordion-icon shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div id="faq1" class="accordion-content px-5 bg-gray-50 text-gray-700 border-t border-gray-100">
+                        請至首頁「檔案下載」，下載帳號申請單，並可參閱操作手冊或簡報 (高中以下學校可另參考最新消息之帳號申請流程)。
+                    </div>
+                </div>
+
+                <div class="border border-gray-200 rounded-lg bg-white overflow-hidden shadow-sm">
+                    <button class="w-full text-left px-5 py-4 font-semibold text-gray-800 flex justify-between items-center hover:bg-gray-50 transition" onclick="toggleFAQ('faq2', this)">
+                        2. 多因子驗證碼一直錯誤?
+                        <svg class="w-5 h-5 text-gray-500 accordion-icon shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div id="faq2" class="accordion-content px-5 bg-gray-50 text-gray-700 border-t border-gray-100">
+                        因 App Google Authenticator 多因子驗證碼依標準時間計算產出，請確認手機時間為<strong>標準時間</strong>。
+                    </div>
+                </div>
+
+                <div class="border border-gray-200 rounded-lg bg-white overflow-hidden shadow-sm">
+                    <button class="w-full text-left px-5 py-4 font-semibold text-gray-800 flex justify-between items-center hover:bg-gray-50 transition" onclick="toggleFAQ('faq3', this)">
+                        3. 申請中案件看不到「刪除案件」按鈕?
+                        <svg class="w-5 h-5 text-gray-500 accordion-icon shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div id="faq3" class="accordion-content px-5 bg-gray-50 text-gray-700 border-t border-gray-100">
+                        <ul class="list-disc list-inside space-y-1">
+                            <li>僅狀態為「申請中」之案件有此按鈕。</li>
+                            <li>若已有申請書編號，主帳號須先至「申請管理/申請書資料送件」將申請書刪除。</li>
+                            <li>若案件也已送至主帳號，主帳號需再點選退回案件或申請人自行點選收回案件，即可在「申請管理/教師案件資料管理」看到刪除案件按鈕。</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="border border-gray-200 rounded-lg bg-white overflow-hidden shadow-sm">
+                    <button class="w-full text-left px-5 py-4 font-semibold text-gray-800 flex justify-between items-center hover:bg-gray-50 transition" onclick="toggleFAQ('faq4', this)">
+                        4. 為何在「所屬單位資料維護」重新上傳檔案了，審核單位還是看不到?
+                        <svg class="w-5 h-5 text-gray-500 accordion-icon shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div id="faq4" class="accordion-content px-5 bg-gray-50 text-gray-700 border-t border-gray-100">
+                        <p class="mb-2">審核單位看到之檔案為「申請管理/申請書資料送件」所上傳之檔案。</p>
+                        <p class="mb-2">若有申請中、檢核中、待補件之案件，且於「單位資料管理/所屬單位資料維護」重新上傳檔案時，於上傳畫面<strong>須勾選同步更新</strong>「申請管理/申請書資料送件」之檔案，相關文件才會一併更新至最新版。</p>
+                        <p>也可直接於「申請管理/申請書資料送件」重新上傳，惟「單位資料管理/所屬單位資料維護」之檔案仍為舊版。</p>
+                    </div>
+                </div>
+
+                <div class="border border-gray-200 rounded-lg bg-white overflow-hidden shadow-sm">
+                    <button class="w-full text-left px-5 py-4 font-semibold text-gray-800 flex justify-between items-center hover:bg-gray-50 transition" onclick="toggleFAQ('faq5', this)">
+                        5. 子帳號為何看不到教師資料?
+                        <svg class="w-5 h-5 text-gray-500 accordion-icon shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div id="faq5" class="accordion-content px-5 bg-gray-50 text-gray-700 border-t border-gray-100">
+                        <p>子帳號與教師之單位須相同才會看到教師資料。</p>
+                        <p class="mt-1">主帳號可至「申請管理/教師基本資料維護」點選教師之詳細資料，調整教師單位同子帳號之單位；或至「帳號資料管理/聘僱單位子帳號維護」調整子帳號單位同教師之單位。</p>
+                    </div>
+                </div>
+
+                <div class="border border-gray-200 rounded-lg bg-white overflow-hidden shadow-sm">
+                    <button class="w-full text-left px-5 py-4 font-semibold text-gray-800 flex justify-between items-center hover:bg-gray-50 transition" onclick="toggleFAQ('faq6', this)">
+                        6. 待補件案件，如何重新上傳申請書或受聘僱外國人名冊?
+                        <svg class="w-5 h-5 text-gray-500 accordion-icon shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div id="faq6" class="accordion-content px-5 bg-gray-50 text-gray-700 border-t border-gray-100">
+                        請至「申請管理/申請書資料送件」上傳檔案。
+                    </div>
+                </div>
+
+                <div class="border border-gray-200 rounded-lg bg-white overflow-hidden shadow-sm">
+                    <button class="w-full text-left px-5 py-4 font-semibold text-gray-800 flex justify-between items-center hover:bg-gray-50 transition" onclick="toggleFAQ('faq7', this)">
+                        7. 單位地址、負責人(校長)姓名及申請書帶出之聯絡人有誤，如何更新?
+                        <svg class="w-5 h-5 text-gray-500 accordion-icon shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div id="faq7" class="accordion-content px-5 bg-gray-50 text-gray-700 border-t border-gray-100">
+                        請至「單位資料管理/所屬單位資料維護」進行更新與修正。
+                    </div>
+                </div>
+
+                <div class="border border-gray-200 rounded-lg bg-white overflow-hidden shadow-sm">
+                    <button class="w-full text-left px-5 py-4 font-semibold text-gray-800 flex justify-between items-center hover:bg-gray-50 transition" onclick="toggleFAQ('faq8', this)">
+                        8. 系統太久沒用會自動登出?
+                        <svg class="w-5 h-5 text-gray-500 accordion-icon shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div id="faq8" class="accordion-content px-5 bg-gray-50 text-gray-700 border-t border-gray-100">
+                        逾 15 分鐘未操作系統，將自動登出。點選右上個人資料欄可重置登出倒數時間。
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="download" class="tab-content hidden">
+            <div class="mb-8">
+                <h2 class="text-3xl font-extrabold text-gray-900 mb-2">檔案下載</h2>
+                <p class="text-gray-600">提供外籍教師聘僱許可相關表單、操作手冊及參考文件下載連結。</p>
+            </div>
+
+            <div class="grid sm:grid-cols-2 gap-6">
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden relative flex flex-col">
+                    <div class="absolute top-0 left-0 w-2 h-full bg-blue-500"></div>
+                    <div class="p-6 sm:p-8 flex-1 flex flex-col">
+                        <div class="flex items-center gap-4 mb-4">
+                            <span class="flex items-center justify-center w-10 h-10 rounded-full bg-blue-100 text-blue-600 font-bold text-lg shrink-0">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
+                            </span>
+                            <h3 class="text-xl font-bold text-gray-900">教育部相關表單與手冊</h3>
+                        </div>
+                        <div class="text-gray-700 flex-1 flex flex-col justify-between">
+                            <p class="mb-6 text-sm">如需下載帳號申請單、各類操作手冊或各項外國專業人才延攬及僱用資訊，請前往教育部專屬資訊網。</p>
+                            <div>
+                                <a href="https://www.awpft.moe.gov.tw/Index?group=H3" target="_blank" class="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition shadow-sm hover:shadow text-sm">
+                                    前往檔案下載專區 (外連)
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden relative flex flex-col">
+                    <div class="absolute top-0 left-0 w-2 h-full bg-green-500"></div>
+                    <div class="p-6 sm:p-8 flex-1 flex flex-col">
+                        <div class="flex items-center gap-4 mb-4">
+                            <span class="flex items-center justify-center w-10 h-10 rounded-full bg-green-100 text-green-600 font-bold text-lg shrink-0">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                            </span>
+                            <h3 class="text-xl font-bold text-gray-900">系統操作說明簡報</h3>
+                        </div>
+                        <div class="text-gray-700 flex-1 flex flex-col justify-between">
+                            <p class="mb-6 text-sm">提供「高中以下申請外籍教師聘僱許可線上申請系統」之完整圖文操作流程與教學簡報。</p>
+                            <div>
+                                <button onclick="togglePDFViewer()" class="inline-flex items-center gap-2 px-5 py-2.5 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 transition shadow-sm hover:shadow text-sm cursor-pointer">
+                                    線上預覽 PDF 簡報
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 內嵌 PDF 預覽區塊 -->
+            <div id="pdf-viewer-container" class="hidden mt-8 bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                <div class="bg-gray-50 px-4 py-3 border-b border-gray-200 flex justify-between items-center">
+                    <h3 class="font-bold text-gray-700">系統操作說明簡報 - 網頁內預覽</h3>
+                    <button onclick="togglePDFViewer()" class="text-gray-500 hover:text-red-500 transition p-1" title="關閉預覽">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                </div>
+                <div class="h-[75vh] w-full">
+                    <iframe src="system-manual.pdf" width="100%" height="100%" class="border-0">
+                        您的瀏覽器不支援內嵌 PDF，請點此<a href="system-manual.pdf" target="_blank" class="text-blue-600 underline">下載檔案</a>。
+                    </iframe>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="mt-12 py-6 text-center text-gray-500 text-sm border-t bg-white space-y-1">
+        <p>@ 2026 CKJH</p>
+        <p>本指南僅供行政人員參考，實際規定依教育部與相關主管機關公告為主。</p>
+    </footer>
+
+    <script>
+        // 分頁切換邏輯
+        function switchTab(tabId) {
+            // 隱藏所有內容
+            document.querySelectorAll('.tab-content').forEach(el => {
+                el.classList.remove('active');
+            });
+            // 移除所有按鈕的啟用樣式
+            document.getElementById('btn-guide').className = "px-4 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-colors";
+            document.getElementById('btn-faq').className = "px-4 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-colors";
+            document.getElementById('btn-download').className = "px-4 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-colors";
+
+            // 顯示目標內容
+            document.getElementById(tabId).classList.add('active');
+            
+            // 設定點擊按鈕的樣式
+            document.getElementById('btn-' + tabId).className = "px-4 py-2 text-sm font-medium rounded-md bg-blue-50 text-blue-700 hover:bg-blue-100 transition-colors";
+        }
+
+        // 常見問題的折疊面板 (Accordion) 邏輯
+        function toggleFAQ(faqId, btnElement) {
+            const content = document.getElementById(faqId);
+            const icon = btnElement.querySelector('.accordion-icon');
+            
+            if (content.classList.contains('open')) {
+                // 關閉
+                content.classList.remove('open');
+                icon.classList.remove('rotate');
+            } else {
+                // 展開
+                content.classList.add('open');
+                icon.classList.add('rotate');
+            }
+        }
+
+        // 內嵌 PDF 預覽切換邏輯
+        function togglePDFViewer() {
+            const viewer = document.getElementById('pdf-viewer-container');
+            if (viewer.classList.contains('hidden')) {
+                // 展開預覽區塊
+                viewer.classList.remove('hidden');
+                // 延遲一點點時間，讓區塊顯示後再平滑滾動過去
+                setTimeout(() => {
+                    viewer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 100);
+            } else {
+                // 隱藏預覽區塊
+                viewer.classList.add('hidden');
+            }
+        }
+    </script>
+</body>
+</html>
